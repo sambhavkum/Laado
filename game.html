@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Love 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Lobster", cursive;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+            position: relative;
+        }
+
+        .heart {
+            color: #ff6b9d;
+            font-size: 60px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+        }
+
+        h1 {
+            color: #764ba2;
+            margin: 20px 0;
+            font-size: 32px;
+        }
+
+        .intro-text {
+            color: #555;
+            font-size: 18px;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        .photo-container {
+            margin: 30px 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .photo-container img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        .question {
+            background: linear-gradient(135deg, #ffd89b 0%, #ff6b9d 100%);
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .options {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .option-btn {
+            background: #f0f0f0;
+            border: 3px solid #667eea;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #333;
+        }
+
+        .option-btn:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .option-btn.correct {
+            background: #4caf50;
+            color: white;
+            border-color: #4caf50;
+        }
+
+        .option-btn.wrong {
+            background: #f44336;
+            color: white;
+            border-color: #f44336;
+        }
+
+        .progress {
+            color: #764ba2;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .score-display {
+            font-size: 24px;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .final-message {
+            display: none;
+        }
+
+        .final-message.show {
+            display: block;
+            animation: fadeIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ffd89b 100%);
+            padding: 40px;
+            border-radius: 20px;
+            color: white;
+            margin: 20px 0;
+        }
+
+        .result-score {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .love-message {
+            font-size: 22px;
+            line-height: 1.8;
+            margin: 30px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .firework {
+            position: fixed;
+            pointer-events: none;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            font-size: 30px;
+            animation: float 6s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .start-btn, .next-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin: 20px 0;
+        }
+
+        .start-btn:hover, .next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .sparkle {
+            position: fixed;
+            font-size: 40px;
+            animation: sparkle 1s ease-out forwards;
+            pointer-events: none;
+        }
+
+        @keyframes sparkle {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            100% { transform: scale(2) rotate(180deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="intro-screen">
+            <div class="heart">❤️</div>
+            <h1>Let's Explore Us Uniquely This Time 🎉</h1>
+            <p class="intro-text">
+                I've prepared something special for you! 
+                Let's see how well you remember our beautiful moments together... 💕
+            </p>
+            <button class="start-btn" onclick="startGame()">Start the Game 💖</button>
+        </div>
+
+        <div id="game-screen" style="display: none;">
+            <div class="progress">
+                Question <span id="current-q">1</span> of <span id="total-q">5</span>
+                <div class="score-display">Score: <span id="current-score">0</span></div>
+            </div>
+            
+            <div class="photo-container" id="photo-container">
+                <img id="question-image" src="" alt="Question Image">
+            </div>
+            
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+        </div>
+
+        <div id="final-screen" class="final-message">
+            <div class="result-card">
+                <div class="heart">💕</div>
+                <h1>Your Result 🎊</h1>
+                <div class="result-score">
+                    <span id="final-score">0</span> / <span id="total-score">5</span>
+                </div>
+                <div class="love-message">
+                    I hope this activity recalls our journey and memories<br>
+                    You are my everything 💖<br><br>
+                    I love you more than you<br>
+                    This is it, I hope tujhe pasand aya ho aur tujhe acha lga ho bss<br>
+                    yhi tak tha safar apna.<br>
+                    I hope tera har birthday aise hi khushi se jaye aur tere chere pe smile laye<br>
+                    Be Happy and Keep Smiling ❤️<br><br>
+                    My pyari lado 🥰✨<br>
+One last message so sorry yrr agar tujhe hurt kia ho toh maaf kar dio baki signing off sambhav kumar<br>
+                    💕 God Bless You Love 💕
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ⚠️ EDIT YOUR QUESTIONS HERE ⚠️
+        const questions = [
+            {
+                image: "pic03.jpeg",
+                question: "Where did we first meet and start talking? 💑",
+                options: ["Tution While discussing Question", "At Tution side room", "At a park", "Facebook"],
+                correctAnswer: 1  // Index starts from 0, so 1 means "At college"
+            },
+            {
+                image: "pic02.jpeg",
+                question: "What was the first movie we watched together? 🎵",
+                options: ["Tu Jhoothi Mai Makkar", "Rocky Aur Rani Kii Prem Kahaani", "The Conjuring", "The Kashmir Files"],
+                correctAnswer: 0  // "Mountains" is the correct answer
+            },
+            {
+                image: "pic01.jpeg",
+                question: "One song that always reminds us of our relationship? 🌹",
+                options: ["Best Friends", "Tum Jo Ayee", "Marjaawan", "Tu Jaane Na"],
+                correctAnswer: 2  // "Marjaawan"
+            },
+            {
+               image: "pic04.jpeg",
+                question: "One location that reminds you about our relationship? 🌹",
+                options: ["Nursery", "South-Ex Park", "Tisra Park", "Asiad"],
+                correctAnswer: 2  // "Tisra Park"
+            },
+            {
+                image: "pic.jpeg",
+                question: "What's one thing you always do, no matter whether we are together or not? 🥰",
+                options: ["Loving Me", "Caring about me", "Respecting the time and memories", "Standing up against those who disrespect and lie about me, just as you are doing now"],
+                correctAnswer: 3  // "ek dusre ke liye khade rahenge humesha and muh tod jawab jo faltu bolega humare bare me"
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'floating-hearts';
+            heart.innerHTML = ['💕', '❤️', '💖', '💗', '💝'][Math.floor(Math.random() * 5)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+
+        setInterval(createFloatingHeart, 1500);
+
+        function startGame() {
+            document.getElementById('intro-screen').style.display = 'none';
+            document.getElementById('game-screen').style.display = 'block';
+            document.getElementById('total-q').textContent = questions.length;
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('current-q').textContent = currentQuestion + 1;
+            document.getElementById('question-image').src = q.image;
+            document.getElementById('question').textContent = q.question;
+            document.getElementById('current-score').textContent = score;
+            
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+            
+            q.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = option;
+                btn.onclick = () => selectAnswer(index, btn);
+                optionsDiv.appendChild(btn);
+            });
+        }
+
+        function selectAnswer(selected, btn) {
+            const buttons = document.querySelectorAll('.option-btn');
+            buttons.forEach(b => b.style.pointerEvents = 'none');
+            
+            const correct = questions[currentQuestion].correctAnswer;
+            
+            if (selected === correct) {
+                btn.classList.add('correct');
+                score++;
+                createSparkles();
+            } else {
+                btn.classList.add('wrong');
+                buttons[correct].classList.add('correct');
+            }
+            
+            document.getElementById('current-score').textContent = score;
+            
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    loadQuestion();
+                } else {
+                    showFinalMessage();
+                }
+            }, 2000);
+        }
+
+        function createSparkles() {
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const sparkle = document.createElement('div');
+                    sparkle.className = 'sparkle';
+                    sparkle.innerHTML = '✨';
+                    sparkle.style.left = Math.random() * 100 + '%';
+                    sparkle.style.top = Math.random() * 100 + '%';
+                    document.body.appendChild(sparkle);
+                    setTimeout(() => sparkle.remove(), 1000);
+                }, i * 100);
+            }
+        }
+
+        function createFirework(x, y) {
+            const colors = ['#ff6b9d', '#ffd89b', '#667eea', '#764ba2'];
+            const symbols = ['✨', '🎆', '🎇', '💫', '⭐'];
+            
+            for (let i = 0; i < 12; i++) {
+                const firework = document.createElement('div');
+                firework.className = 'firework';
+                firework.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                firework.style.color = colors[Math.floor(Math.random() * colors.length)];
+                firework.style.left = x + 'px';
+                firework.style.top = y + 'px';
+                firework.style.fontSize = (20 + Math.random() * 20) + 'px';
+                
+                const angle = (i / 12) * Math.PI * 2;
+                const velocity = 100 + Math.random() * 100;
+                const tx = Math.cos(angle) * velocity;
+                const ty = Math.sin(angle) * velocity;
+                
+                document.body.appendChild(firework);
+                
+                firework.animate([
+                    { transform: 'translate(0, 0)', opacity: 1 },
+                    { transform: `translate(${tx}px, ${ty}px)`, opacity: 0 }
+                ], {
+                    duration: 1000 + Math.random() * 500,
+                    easing: 'cubic-bezier(0, 0.9, 0.57, 1)'
+                });
+                
+                setTimeout(() => firework.remove(), 1500);
+            }
+        }
+
+        function showFinalMessage() {
+            document.getElementById('game-screen').style.display = 'none';
+            document.getElementById('final-screen').classList.add('show');
+            document.getElementById('final-score').textContent = score;
+            document.getElementById('total-score').textContent = questions.length;
+            
+            // Continuous fireworks
+            const fireworkInterval = setInterval(() => {
+                const x = Math.random() * window.innerWidth;
+                const y = Math.random() * window.innerHeight;
+                createFirework(x, y);
+            }, 400);
+            
+            // Create lots of hearts
+            for (let i = 0; i < 30; i++) {
+                setTimeout(createFloatingHeart, i * 300);
+            }
+            
+            // Stop fireworks after 15 seconds
+            setTimeout(() => clearInterval(fireworkInterval), 15000);
+        }
+    </script>
+</body>
+</html>
